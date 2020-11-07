@@ -10,10 +10,13 @@ import  pytz
 
 
 def get_harts_html(url: str) -> Optional[str] :
-    response = requests.get(url)
     result = None
-    if response.status_code == 200:
-        result = response.content
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            result = response.content
+    except:
+        pass
     return result
 
 
@@ -21,7 +24,7 @@ def extract_table(url: str) -> Optional[pd.DataFrame]:
     html_result = get_harts_html(url)
     df = None
     if html_result:
-        soup = BeautifulSoup(html_result)
+        soup = BeautifulSoup(html_result, features="lxml")
         latest_link = soup.find("h2")
         covid_details_list = list(latest_link.next_siblings)
         start_date = covid_details_list[0]
