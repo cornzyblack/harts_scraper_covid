@@ -1,1 +1,7 @@
 venv
+.vscode
+.idea
+__pycache__
+*.pyc
+datapane_script.ipynb
+datapane_script.py
