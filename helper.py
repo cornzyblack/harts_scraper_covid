@@ -31,6 +31,15 @@ def get_harts_html(url: str) -> Optional[str]:
 
 
 def extract_table(url: str) -> Optional[pd.DataFrame]:
+    """
+    Returns the HTML content of the URL.
+
+    Parameters:
+        url (str):The Harts Covid URL page
+
+    Returns:
+        pd.DataFrame: A DataFrame of the scraped Table in the Covid Page
+    """
     html_result = get_harts_html(url)
     df = None
     if html_result:
