@@ -106,17 +106,36 @@ def scrape_table(url: str, daily: bool = True) -> Union[pd.DataFrame, List]:
                     )
                     start_week = dateparser.parse(start_week_text)
             df = pd.read_html(table_html)[0]
-            df = df.rename(columns={"Unnamed: 0": "days"})
+            df = df.rename(
+                columns={
+                    "Unnamed: 0": "weekdays",
+                    "New staff cases": "new_staff_cases",
+                    "New student cases: On-campus": "on_campus_new_student_cases",
+                    "New student cases: Off-campus": "off_campus_new_student_cases",
+                }
+            )
 
-            df["dates"] = pd.date_range(
+            df["created_at"] = pd.date_range(
                 start_week.strftime("%m/%d/%Y"), periods=df.shape[0]
             )
             result = df
+            df["scraped_at"] = datetime.now()
+            df = df[
+                [
+                    "created_at",
+                    "scraped_at",
+                    "new_staff_cases",
+                    "on_campus_new_student_cases",
+                    "off_campus_new_student_cases",
+                ]
+            ]
         if daily:
-            result = df[df.dates == time_now.date().strftime("%Y-%m-%d")].to_dict(
+            result = df[df.created_at == time_now.date().strftime("%Y-%m-%d")].to_dict(
                 orient="records"
             )
-
+            if result:
+                result = result[0]
     except Exception as e:
         print(e)
+        return None
     return result
