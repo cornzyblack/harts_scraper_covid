@@ -7,8 +7,8 @@ from .database import Base
 class CovidTestResult(Base):
     __tablename__ = "covid_test_result"
     id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime, default=datetime.now())
-    scraped_at = Column(Date)
+    created_at = Column(Date)
+    scraped_at = Column(DateTime, default=datetime.now())
     new_staff_cases = Column(Integer)
     on_campus_new_student_cases = Column(Integer)
     off_campus_new_student_cases = Column(Integer)
