@@ -1,35 +1,22 @@
-from typing import List, Optional
-from pydantic import BaseModel
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Date
+from sqlalchemy.orm import relationship
 from datetime import datetime
+from .database import Base
 
 
-class CovidTestResultBase(BaseModel):
-    created_at: datetime
-    new_staff_cases: int
-    new_student_cases: int
-    on_campus_new_student_cases: int
-    off_campus_new_student_cases: int
+class CovidTestResult(Base):
+    __tablename__ = "covid_test_result"
+    id = Column(Integer, primary_key=True, index=True)
+    created_at = Column(DateTime, default=datetime.now())
+    scraped_at = Column(Date)
+    new_staff_cases = Column(Integer)
+    on_campus_new_student_cases = Column(Integer)
+    off_campus_new_student_cases = Column(Integer)
 
 
-class CovidTestResultCreate(ItemBase):
-    pass
-
-
-class CovidTestResult(ItemBase):
-    class Config:
-        orm_mode = True
-
-
-class ScraperLogBase(BaseModel):
-    created_at: datetime
-    status: bool
-    status_code: int
-
-
-class ScraperLogCreate(ScraperLogBase):
-    pass
-
-
-class ScraperLogCreate(ScraperLogBase):
-    class Config:
-        orm_mode = True
+class ScraperLog(Base):
+    __tablename__ = "scraper_log"
+    id = Column(Integer, primary_key=True, index=True)
+    created_at = Column(DateTime, default=datetime.now())
+    status = Column(Boolean)
+    status_code = Column(Integer)
