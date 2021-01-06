@@ -30,7 +30,7 @@ def get_db():
 @app.get("/scrape/weekly")
 def scraper_weekly():
     url = "https://www.herts.ac.uk/coronavirus/covid-19-case-tracker"
-    result = helper.extract_table(url, daily=False)
+    result = helper.scrape_table(url, daily=False)
     if isinstance(result, pd.DataFrame):
         result = result.to_dict(orient="records")
     return result
@@ -40,8 +40,6 @@ def scraper_weekly():
 def scraper_daily():
     url = "https://www.herts.ac.uk/coronavirus/covid-19-case-tracker"
     result = helper.scrape_table(url)
-    if isinstance(result, pd.DataFrame):
-        result = result.to_dict(orient="records")
     return result
 
 
