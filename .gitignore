@@ -5,3 +5,5 @@ __pycache__
 *.pyc
 datapane_script.ipynb
 datapane_script.py
+db_init.py
+.env
