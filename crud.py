@@ -11,26 +11,27 @@ def get_user(db: Session, date: datetime):
     )
 
 
-def get_covid_test_result_date(db: Session, date: datetime):
+def get_covid_test_result_by_date(db: Session, date: datetime):
     return (
         db.query(models.CovidTestResult)
-        .filter(models.CovidTestResult.date == date)
+        .filter(models.CovidTestResult.created_at == date)
         .first()
     )
 
 
-def get_covid_test_results(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.CovidTestResult).offset(skip).limit(limit).all()
+def get_covid_test_results(db: Session):
+    return db.query(models.CovidTestResult).all()
 
 
 def create_covid_test_result(
     db: Session, covid_test_result: schemas.CovidTestResultCreate
 ):
     db_test_result = models.CovidTestResult(
-        created_at=datetime.now(),
-        new_staff_cases=3,
-        on_campus_new_student_cases=1,
-        off_campus_new_student_cases=10,
+        scraped_at=datetime.now(),
+        created_at=covid_test_result.created_at,
+        new_staff_cases=covid_test_result.new_staff_cases,
+        on_campus_new_student_cases=covid_test_result.on_campus_new_student_cases,
+        off_campus_new_student_cases=covid_test_result.off_campus_new_student_cases,
     )
     db.add(db_test_result)
     db.commit()
