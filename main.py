@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from . import helper
+import helper
 from fastapi.responses import JSONResponse
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Dict
-from . import crud, models, schemas
-from .database import SessionLocal, engine
+import crud, models, schemas
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 HERTS_COVID_URL = "https://www.herts.ac.uk/coronavirus/covid-19-case-tracker"
