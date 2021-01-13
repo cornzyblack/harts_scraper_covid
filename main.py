@@ -28,7 +28,7 @@ def get_db():
 
 
 @app.get("/scrape/weekly")
-def scraper_weekly():
+async def scraper_weekly():
     url = HERTS_COVID_URL
     result = helper.scrape_table(url, daily=False)
     if isinstance(result, pd.DataFrame):
@@ -37,14 +37,14 @@ def scraper_weekly():
 
 
 @app.get("/scrape/daily")
-def scraper_daily():
+async def scraper_daily():
     url = HERTS_COVID_URL
     result = helper.scrape_table(url)
     return result
 
 
 @app.post("/results", response_model=schemas.CovidTestResult)
-def create_test_result(trigger: Dict, db: Session = Depends(get_db)):
+async def create_test_result(trigger: Dict, db: Session = Depends(get_db)):
     result = None
     frequency = trigger["frequency"]
     if frequency == "daily":
@@ -64,12 +64,12 @@ def create_test_result(trigger: Dict, db: Session = Depends(get_db)):
 
 
 @app.get("/results/daily", response_model=schemas.CovidTestResult)
-def read_covid_test_results(db: Session = Depends(get_db)):
+async def read_covid_test_results(db: Session = Depends(get_db)):
     results = crud.get_covid_test_results(db)
     return results
 
 
 @app.get("/results/", response_model=List[schemas.CovidTestResult])
-def read_covid_test_results(db: Session = Depends(get_db)):
+async def read_covid_test_results(db: Session = Depends(get_db)):
     results = crud.get_covid_test_results(db)
     return results
