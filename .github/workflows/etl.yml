@@ -1,8 +1,9 @@
 name: etl-run
 on:
-  schedule:
-    - cron: "* * * * *"
-    # - cron: "15 17 * * 1-5"
+  [push]
+  # schedule:
+  #   - cron: "* * * * *"
+  # - cron: "15 17 * * 1-5"
 jobs:
   data_pipeline:
     runs-on: ubuntu-latest
