@@ -17,8 +17,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run ETL.py
-        # env: # Read Secrets as environment variables
-        #   DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        #   HERTS_COVID_URL: ${{ secrets.HERTS_COVID_URL }}
-        #   DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
+        env: # Read Secrets as environment variables
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          HERTS_COVID_URL: ${{ secrets.HERTS_COVID_URL }}
+          DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
         run: python etl.py
