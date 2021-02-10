@@ -95,7 +95,7 @@ def scrape_table(url: str, daily: bool = True) -> Union[pd.DataFrame, List]:
             start_week_match = soup.find_all("h3", text=re.compile("Week commencing"))
             if start_week_match:
                 start_week_text = start_week_match[0].text.lower()
-                month_match = r"(\d{0,2}\sjanuary|february|march|april|may|june|july|august|september|october|november|december)"
+                month_match = r"(\d{0,2})\s(january|february|march|april|may|june|july|august|september|october|november|december)"
                 start_date_match = re.search(month_match, start_week_text)
 
                 if start_date_match:
@@ -105,6 +105,7 @@ def scrape_table(url: str, daily: bool = True) -> Union[pd.DataFrame, List]:
                         + str(current_year)
                     )
                     start_week = dateparser.parse(start_week_text)
+
             df = pd.read_html(table_html)[0]
             df = df.rename(
                 columns={
@@ -129,8 +130,9 @@ def scrape_table(url: str, daily: bool = True) -> Union[pd.DataFrame, List]:
                     "off_campus_new_student_cases",
                 ]
             ]
+            print(df)
         if daily:
-            result = df[df.created_at == time_now.date().strftime("%Y-%m-%d")].to_dict(
+            result = df[df.created_at ==(time_now.date() - timedelta(days=1)).strftime("%Y-%m-%d")].to_dict(
                 orient="records"
             )
             if result:
