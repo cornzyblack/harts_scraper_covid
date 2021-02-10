@@ -11,3 +11,4 @@ db_init.py
 *.db
 *.db-journal
 scraper.py
+etl_venv
