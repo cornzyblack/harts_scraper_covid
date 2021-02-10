@@ -8,7 +8,7 @@ from sqlalchemy import insert
 from helper import scrape_table
 
 load_dotenv()
-print('env', os.getenv('DEVELOPMENT'))
+
 engine = create_engine(os.getenv('DATABASE_URL'))
 
 url = os.getenv('HERTS_COVID_URL')
