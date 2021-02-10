@@ -26,7 +26,6 @@ cases = Table('cases', metadata,
 
 result = scrape_table(url)
 
-print("=RESULT==", result)
 metadata.create_all(engine)
 
 ins = cases.insert()
