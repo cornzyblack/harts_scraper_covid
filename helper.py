@@ -132,7 +132,7 @@ def scrape_table(url: str, daily: bool = True) -> Union[pd.DataFrame, List]:
             ]
 
         if daily:
-            result = df[df.created_at ==(time_now.date() - timedelta(days=1)).strftime("%Y-%m-%d")].to_dict(
+            result = df[df.created_at ==time_now.date().strftime("%Y-%m-%d")].to_dict(
                 orient="records"
             )
             if result:
