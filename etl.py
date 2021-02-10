@@ -9,7 +9,7 @@ from helper import scrape_table
 
 load_dotenv()
 
-engine = create_engine(os.getenv('CONNECTION_STRING'))
+engine = create_engine(os.getenv('DATABASE_URL'))
 
 url = os.getenv('HERTS_COVID_URL')
 
