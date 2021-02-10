@@ -21,4 +21,4 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           HERTS_COVID_URL: ${{ secrets.HERTS_COVID_URL }}
           ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
-        run: echo $ENVIRONMENT | sed -e 's/\(.\)/\1 /g'
+        run: python etl.py
