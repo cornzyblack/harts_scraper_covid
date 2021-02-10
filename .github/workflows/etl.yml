@@ -20,5 +20,5 @@ jobs:
         env: # Read Secrets as environment variables
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           HERTS_COVID_URL: ${{ secrets.HERTS_COVID_URL }}
-          DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
-        run: echo DEVELOPMENT | sed -e 's/\(.\)/\1 /g'
+          ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+        run: echo ENVIRONMENT | sed -e 's/\(.\)/\1 /g'
