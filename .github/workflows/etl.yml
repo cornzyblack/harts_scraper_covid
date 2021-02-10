@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r etl_requirements.txt
       - name: Run ETL.py
         env: # Read Secrets as environment variables
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
