@@ -31,28 +31,13 @@ def get_db():
         db.close()
 
 
-@app.get("/scrape/weekly")
-async def scraper_weekly():
-    url = HERTS_COVID_URL
-    result = helper.scrape_table(url, daily=False)
-    if isinstance(result, pd.DataFrame):
-        result = result.to_dict(orient="records")
-    return result
-
-
-@app.get("/scrape/daily")
-async def scraper_daily():
-    url = HERTS_COVID_URL
-    result = helper.scrape_table(url)
-    return result
-
-@app.get("/results/daily", response_model=schemas.CovidTestResult)
+@app.get("/results/daily", response_model=schemas.Cases)
 async def read_covid_test_results(db: Session = Depends(get_db)):
     results = crud.get_covid_test_results(db)
     return results
 
 
-@app.get("/results/", response_model=List[schemas.CovidTestResult])
+@app.get("/results/", response_model=List[schemas.Cases])
 async def read_covid_test_results(db: Session = Depends(get_db)):
     results = crud.get_covid_test_results(db)
     return results

@@ -16,7 +16,7 @@ url = os.getenv('HERTS_COVID_URL')
 metadata = MetaData()
 
 cases = Table('cases', metadata,
-    Column('user_id', Integer(), primary_key=True),
+    Column('id', Integer(), primary_key=True),
     Column('new_staff_cases', Integer()),
     Column('on_campus_new_student_cases', Integer(), nullable=False),
     Column('off_campus_new_student_cases', Integer(), nullable=False),
