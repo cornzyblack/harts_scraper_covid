@@ -4,7 +4,7 @@ on:
     - cron: "* * * * *"
     # - cron: "15 17 * * 1-5"
 jobs:
-  build:
+  data_pipeline:
     runs-on: ubuntu-latest
     name: Run Daily ETL Process from Monday - Friday
     steps:
