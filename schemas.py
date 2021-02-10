@@ -18,18 +18,3 @@ class CasesCreate(CasesBase):
 class Cases(CasesBase):
     class Config:
         orm_mode = True
-
-
-# class ScraperLogBase(BaseModel):
-#     created_at: datetime
-#     status: bool
-#     status_code: int
-
-
-# class ScraperLogCreate(ScraperLogBase):
-#     pass
-
-
-# class ScraperLogCreate(ScraperLogBase):
-#     class Config:
-#         orm_mode = True
