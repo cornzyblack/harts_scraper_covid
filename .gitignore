@@ -10,3 +10,4 @@ db_init.py
 db_init.py
 *.db
 *.db-journal
+models.py

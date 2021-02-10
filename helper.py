@@ -26,8 +26,8 @@ def get_harts_html(url: str) -> Optional[str]:
         response = requests.get(url)
         if response.status_code == 200:
             result = response.content
-    except:
-        pass
+    except Exception as e:
+        print(e)
     return result
 
 
@@ -63,8 +63,8 @@ def get_harts_html(url: str) -> Optional[str]:
         response = requests.get(url)
         if response.status_code == 200:
             result = response.content
-    except:
-        pass
+    except Exception as e:
+        print(e)
     return result
 
 

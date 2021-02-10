@@ -7,11 +7,15 @@ from sqlalchemy.orm import Session
 from typing import List, Dict
 import crud, models, schemas
 from database import SessionLocal, engine
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 models.Base.metadata.create_all(bind=engine)
-HERTS_COVID_URL = "https://www.herts.ac.uk/coronavirus/covid-19-case-tracker"
-app = FastAPI()
+HERTS_COVID_URL = os.getenv('HERTS_COVID_URL')
 
+app = FastAPI()
 
 @app.get("/")
 async def root():
@@ -41,27 +45,6 @@ async def scraper_daily():
     url = HERTS_COVID_URL
     result = helper.scrape_table(url)
     return result
-
-
-@app.post("/results", response_model=schemas.CovidTestResult)
-async def create_test_result(trigger: Dict, db: Session = Depends(get_db)):
-    result = None
-    frequency = trigger["frequency"]
-    if frequency == "daily":
-        url = HERTS_COVID_URL
-        result = helper.scrape_table(url)
-        if result:
-            db_covid_result = crud.get_covid_test_result_by_date(
-                db, date=result.get("created_at", None)
-            )
-            if db_covid_result:
-                raise HTTPException(
-                    status_code=400, detail="Test result already created"
-                )
-    return crud.create_covid_test_result(
-        db=db, covid_test_result=schemas.CovidTestResult(**result)
-    )
-
 
 @app.get("/results/daily", response_model=schemas.CovidTestResult)
 async def read_covid_test_results(db: Session = Depends(get_db)):
