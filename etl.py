@@ -10,6 +10,7 @@ from helper import scrape_table
 load_dotenv()
 
 engine = create_engine(os.getenv('CONNECTION_STRING'))
+
 url = os.getenv('HERTS_COVID_URL')
 
 metadata = MetaData()
@@ -26,7 +27,6 @@ cases = Table('cases', metadata,
 result = scrape_table(url)
 metadata.create_all(engine)
 
-print(result)
 ins = cases.insert()
 
 with engine.connect() as connection:
