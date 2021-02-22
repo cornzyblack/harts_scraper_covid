@@ -1,12 +1,11 @@
 from fastapi import FastAPI
-import helper
 from fastapi.responses import JSONResponse
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Dict
-import crud, models, schemas
-from database import SessionLocal, engine
+from . import crud, models, schemas
+from .database import SessionLocal, engine
 import os
 from dotenv import load_dotenv
 

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-import models
+from . import models
 from datetime import datetime
 
 
